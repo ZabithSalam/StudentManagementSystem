@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Subject;
+use Illuminate\Http\Request;
+use App\Models\AssignSubject;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Hash;
 
 class ProfileController extends Controller
 {
@@ -15,7 +17,13 @@ class ProfileController extends Controller
      */
     public function index()
     {
-        return view('profile');
+        $assignSubjects = AssignSubject::latest()->get();
+        $subjects = Subject::latest()->get();
+       
+        return view('profile',[
+            'assignSubjects' => $assignSubjects,
+            'subjects' => $subjects,
+        ]);
     }
 
     /**

@@ -7,73 +7,75 @@
           <div class="col-md-12">
             <div class="card">
               <div class="card-header">
-                <h4 class="card-title"> Subject list</h4>
+                  
+                <h4 class="card-title">Assign Subject</h4>
+
+                @if(session('subAssmessage'))
+                    <div class="col-md-12 ">
+                      <p class="alert alert-success mb-2">{{session('subAssmessage')}}</p>
+                    </div>
+                  @endif
+                  @if(session('error'))
+                    <div class="col-md-12 ">
+                      <p class="alert alert-danger mb-2">{{session('error')}}</p>
+                    </div>
+                  @endif
+                  @error('subject_id')
+                    <div class="alert alert-danger" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </div>
+                  @enderror
+                  @error('student_id')
+                    <div class="alert alert-danger" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </div>
+                  @enderror
               </div>
               <div class="card-body">
-                <div class="table-responsive p-4">
-                  <a href="#" class="btn btn-success" data-toggle="modal" data-target="#subjectModal"><i class="fa fa-pencil" ></i> Add New Subject</a>
-                  <table id="subjectsTable" class="table table-striped table-bordered" style="width:100%">
-                    <thead class=" text-primary">
-                      <th>
-                        Subject-ID
-                      </th>
-                      <th>
-                        Subject Name
-                      </th>
-                      <th>
-                        Action
-                      </th>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td>
-                          SCI342
-                        </td>
-                        <td>
-                          Science
-                        </td>
-                        <td>
-                          <a href="" class="btn btn-success"><i class="fa fa-eye"></i></a>
-                          <a href="" class="btn btn-primary"><i class="fa fa-edit"></i></a>
-                          <a href="" class="btn btn-danger"><i class="fa fa-trash"></i></a>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
+                
+              <form action="{{route('assign.subject.store')}}" method="POST">
+                    @csrf
+                  <div class="row justify-content-center ">
+
+                    <div class="col-md-3 ">
+                      <div class="form-group">
+                        <select class="selectpicker" data-live-search="true" name="student_id">
+                          <option value="">Select Student ID</option>
+                          @foreach($users as $user)
+                            @if($user->role == 'Admin' OR $user->role == 'Teacher')
+                            @else
+                              <option value="{{$user->id}}">{{$user->code}}</option>
+                            @endif
+                          @endforeach
+                        </select>
+                      </div>
+                    </div>
+                    <div class="col-md-3 ">
+                      <div class="form-group">
+                        <select class="selectpicker" data-live-search="true" name="subject_id">
+                          <option value="">Select Subject ID</option>
+                        @foreach($subjects as $subject)
+                          <option value="{{$subject->id}}">{{$subject->code}}</option>
+                        @endforeach
+                        </select>
+                      </div>
+                    </div>
+
+                  </div>
+                  
+                  <div class="row">
+                    <div class="update ml-auto mr-auto">
+                      <button type="submit" class="btn btn-primary btn-round">Assign</button>
+                    </div>
+                  </div>
+            </form>
+            
               </div>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- Subject Modal -->
-      <div class="modal fade" id="subjectModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">Add Subject</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-
-            <form action="" method="post">
-
-            <div class="modal-body">
-              <div class="form-group col-lg-12">
-                <label for="recipient-name" class="col-form-label">Subject Name</label>
-                <input type="text" class="form-control" name="subject" id="subject-name">
-              </div>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-              <button type="submit" class="btn btn-primary">Add</button>
-            </div>
-
-          </form>
-          </div>
-        </div>
-      </div>
+      <div style="margin-top: 220px;"></div>
 
 @endsection

@@ -33,7 +33,7 @@
                     <div class="form-group">
                        <!--Avatar-->
                        <div>
-                        <div class="d-flex justify-content-center mb-4">
+                        <div class="d-flex  mb-4">
                         @if(!Auth::user()->photo == null)
                            
                             <img  id="img" class="img img-fluid img-thumbnail"  src="{{asset('storage/photos/'.Auth::user()->photo)}}" alt="" />
@@ -42,7 +42,7 @@
                             <img  id="img" class="img  img-fluid img-thumbnail"  src="/assets/img/no-image-available.png" alt="" />
                         @endif
                         </div>
-                        <div class="d-flex justify-content-center ">
+                        <div class="d-flex mb-4">
 
                             <div class="btn btn-primary">
                                 <label class="form-label text-white" for="imgInp" style="font-size: 20px;"><i class="fa fa-upload"></i></label>
@@ -57,43 +57,37 @@
 
                 </form>
                       @if(Auth::user()->role == 'Teacher')
-                          <h5><strong>Teacher ID:</strong> {{Auth::user()->code}}</h6>
-                         @elseif(Auth::user()->role == 'Student')
-                          <h5><strong>Student ID:</strong> {{Auth::user()->code}}</h6>
+                          <h5><strong>ID No:</strong> {{Auth::user()->code}}</h6>
                          @else
-                          <h5><strong>Admin ID:</strong> {{Auth::user()->code}}</h6>
+                          <h5><strong>Student ID:</strong> {{Auth::user()->code}}</h6>
                       @endif
 
                        <p><strong>Role:</strong> {{Auth::user()->role}}</p> 
 
                        @if(Auth::user()->role == 'Teacher')
 
-                        <p><strong>Teacher Name:</strong> {{Auth::user()->first_name}} {{Auth::user()->last_name}}</p> 
-                        <p><strong>Date Of Birth:</strong> {{Auth::user()->dob}}</p> 
-                        <p><strong>City:</strong> {{Auth::user()->city}}</p> 
-                        <p><strong>NIC:</strong> {{Auth::user()->nic}}</p> 
-                        <p><strong>Gender:</strong> {{Auth::user()->gender}}</p> 
-                        <p><strong>Subjects:</strong> <span style="background-color: rgb(65, 165, 73); padding: 4px; border-radius: 6px; color: #fff;">Science</span> <span style="background-color: rgb(65, 165, 73); padding: 4px; border-radius: 6px; color: #fff;">Maths</span> <span style="background-color: rgb(65, 165, 73); padding: 4px; border-radius: 6px; color: #fff;">English</span></p> 
-                      
-                        @elseif(Auth::user()->role == 'Student')
+                        <p><strong>Full Name:</strong> {{Auth::user()->first_name}} {{Auth::user()->last_name}}</p> 
+                   
+                        @else
                        
-                        <p><strong>Teacher Name:</strong> {{Auth::user()->first_name}} {{Auth::user()->last_name}}</p> 
+                        <p><strong>Student Name:</strong> {{Auth::user()->first_name}} {{Auth::user()->last_name}}</p> 
                         <p><strong>Date Of Birth:</strong> {{Auth::user()->dob}}</p> 
                         <p><strong>City:</strong> {{Auth::user()->city}}</p> 
                         <p><strong>NIC:</strong> {{Auth::user()->nic}}</p> 
                         <p><strong>Gender:</strong> {{Auth::user()->gender}}</p> 
                         <p><strong>Batch:</strong> {{Auth::user()->batch}}</p> 
-                        <p><strong>Subjects:</strong> <span style="background-color: rgb(65, 165, 73); padding: 4px; border-radius: 6px; color: #fff;">Science</span> <span style="background-color: rgb(65, 165, 73); padding: 4px; border-radius: 6px; color: #fff;">Maths</span> <span style="background-color: rgb(65, 165, 73); padding: 4px; border-radius: 6px; color: #fff;">English</span></p> 
-                        <p><strong>Marks:</strong> <a href="./marks.html">View</a></p> 
-
-                       @else
-                        <p><strong>Admin Name:</strong> {{Auth::user()->first_name}} {{Auth::user()->last_name}}</p> 
-
+                        <p><strong>Enrolled Subjects:</strong>
+                        @foreach($subjects as $subject)
+                         <span style="background-color: rgb(65, 165, 73); padding: 4px; border-radius: 6px; color: #fff;">{{$subject->subject}}</span> 
+                        @endforeach
+                         <p><strong>Marks:</strong> <a href="./marks.html">View</a></p> 
+                     
                        @endif
 
                     </div>
-                  </div>
-                <form action="{{url('change-password')}}" method="POST">
+                  <h5 class="mt-5"><strong>Change Password</strong></h6>
+
+                  <form action="{{url('change-password')}}" method="POST">
                     @csrf
                   <div class="row">
 
@@ -124,7 +118,7 @@
                     </div>
                   </div>
             </form>
-
+                  </div>
             </div>
           </div>
         </div>

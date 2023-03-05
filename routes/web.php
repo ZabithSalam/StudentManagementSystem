@@ -22,5 +22,17 @@ Route::get('/dashboard', [App\Http\Controllers\HomeController::class, 'index'])-
 Route::get('/profile', [App\Http\Controllers\ProfileController::class, 'index'])->name('profile');
 Route::post('/change-password', [App\Http\Controllers\ProfileController::class, 'store'])->name('change.password');
 Route::put('/upload-photo/{id}', [App\Http\Controllers\ProfileController::class, 'uploadPhoto'])->name('upload.photo');
+Route::get('/subjects', [App\Http\Controllers\SubjectController::class, 'index'])->name('subject.view');
+Route::post('/subject', [App\Http\Controllers\SubjectController::class, 'store'])->name('subject.store');
+Route::delete('/subject-delete/{id}', [App\Http\Controllers\SubjectController::class, 'destroy'])->name('subject.destroy');
+Route::get('/assign-subject', [App\Http\Controllers\AssignSubjectController::class, 'index'])->name('assign.subject');
+Route::post('/assign-subject', [App\Http\Controllers\AssignSubjectController::class, 'store'])->name('assign.subject.store');
+Route::get('/students', [App\Http\Controllers\UserController::class, 'index'])->name('student.view');
+Route::delete('/students-delete/{id}', [App\Http\Controllers\UserController::class, 'destroy'])->name('student.destroy');
+Route::get('/view-profile/{user}', [App\Http\Controllers\UserController::class, 'show'])->name('view.profile');
+Route::delete('/assigned-subject-delete/{id}', [App\Http\Controllers\AssignSubjectController::class, 'destroy'])->name('assign.subject.destroy');
+Route::post('/user-store', [App\Http\Controllers\UserController::class, 'store'])->name('user.store');
+Route::get('/edit-user/{user}', [App\Http\Controllers\UserController::class, 'edit'])->name('edit.user');
+Route::put('/update-user/{id}', [App\Http\Controllers\UserController::class, 'update'])->name('update.user');
 
 

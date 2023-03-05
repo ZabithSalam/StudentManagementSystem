@@ -17,7 +17,12 @@
                   <div class="col-7 col-md-8">
                     <div class="numbers">
                       <p class="card-category">Teachers</p>
-                      <p class="card-title">50<p>
+                      <p class="card-title">
+                      @php
+                         $users = App\Models\User::where('role','Teacher')->count();
+                      @endphp 
+                      {{$users}}
+                      <p>
                     </div>
                   </div>
                 </div>
@@ -36,7 +41,12 @@
                   <div class="col-7 col-md-8">
                     <div class="numbers">
                       <p class="card-category">Students</p>
-                      <p class="card-title">600<p>
+                      <p class="card-title">
+                      @php
+                         $users = App\Models\User::where('role','Student')->count();
+                      @endphp 
+                      {{$users}}
+                      <p>
                     </div>
                   </div>
                 </div>
@@ -55,7 +65,9 @@
                   <div class="col-7 col-md-8">
                     <div class="numbers">
                       <p class="card-category">Subjcts</p>
-                      <p class="card-title">10<p>
+                      <p class="card-title">
+                        {{App\Models\Subject::count()}}
+                      <p>
                     </div>
                   </div>
                 </div>

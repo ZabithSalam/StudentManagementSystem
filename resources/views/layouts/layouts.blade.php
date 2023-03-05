@@ -33,19 +33,25 @@ Coded by www.creative-tim.com
   <!-- CSS Just for demo purpose, don't include it in your project -->
   <link href="/assets/demo/demo.css" rel="stylesheet" />
   <link rel="stylesheet" href="https://kit.fontawesome.com/17d1c0f917.css" crossorigin="anonymous">
+
+  <!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css">
+  <!-- data table -->
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.13.3/css/dataTables.bootstrap4.min.css">
+
 </head>
 
 <body class="">
 <div class="wrapper ">
     <div class="sidebar" data-color="white" data-active-color="danger">
       <div class="logo">
-        <a href="./dashboard.html" class="simple-text logo-mini">
+        <a href="{{route('dashboard')}}" class="simple-text logo-mini">
           <div class="logo-image-small">
-            <img src="assets/img/logo-small.png">
+            <img src="/assets/img/logo-small.png">
           </div>
           <!-- <p>CT</p> -->
         </a>
-        <a href="./dashboard.html" style="text-transform: capitalize;" class="simple-text logo-normal">
+        <a href="{{route('dashboard')}}" style="text-transform: capitalize;" class="simple-text logo-normal">
           {{Auth::user()->first_name}} {{Auth::user()->last_name}}
         </a>
       </div>
@@ -69,22 +75,10 @@ Coded by www.creative-tim.com
             </a>
           </li>
 
-
-          @if(Auth::user()->role == 'Admin' )
-
-          <li class="{{ Request::path() === 'teachers'? 'active': '' }}">
-            <a href="./teachers.html">
-              <i class="fa-solid fa-chalkboard-user"></i>
-              <p>Teachers</p>
-            </a>
-          </li>
-
-          @endif
-
-          @if(Auth::user()->role == 'Admin' || Auth::user()->role == 'Teacher' )
+          @if(Auth::user()->role == 'Teacher' )
 
           <li class="{{ Request::path() === 'students'? 'active': '' }}">
-            <a href="./students.html">
+            <a href="{{route('student.view')}}">
               <i class="fa-solid fa-users-line"></i>
               
               <p>Students</p>
@@ -93,10 +87,10 @@ Coded by www.creative-tim.com
 
           @endif
 
-          @if(Auth::user()->role == 'Admin' || Auth::user()->role == 'Teacher' )
+          @if(Auth::user()->role == 'Teacher' )
 
           <li class="{{ Request::path() === 'subjects'? 'active': '' }}">
-            <a href="./subjects.html">
+            <a href="{{route('subject.view')}}">
               <i class="fa fa-book"></i>
               <p>Subjects</p>
             </a>
@@ -115,10 +109,10 @@ Coded by www.creative-tim.com
           
           @endif
 
-          @if(Auth::user()->role == 'Admin' || Auth::user()->role == 'Teacher' )
+          @if(Auth::user()->role == 'Teacher' )
           
           <li class="{{ Request::path() === 'assign-subject'? 'active': '' }}">
-            <a href="./marks.html">
+            <a href="{{route('assign.subject')}}">
               <i class="fa fa-book"></i>
               <p>Assign Subjects</p>
             </a>
@@ -128,8 +122,8 @@ Coded by www.creative-tim.com
 
           @if(Auth::user()->role == 'Student')
           
-          <li class="{{ Request::path() === 'assign-subject'? 'active': '' }}">
-            <a href="./marks.html">
+          <li class="{{ Request::path() === 'subjects'? 'active': '' }}">
+            <a href="{{route('subject.view')}}">
               <i class="fa fa-book"></i>
               <p>Enrolled Subjects</p>
             </a>
@@ -137,10 +131,10 @@ Coded by www.creative-tim.com
           
           @endif
 
-          @if(Auth::user()->role == 'Admin' || Auth::user()->role == 'Teacher' )
+          @if(Auth::user()->role == 'Teacher' )
 
-          <li class="{{ Request::path() === 'subjects'? 'active': '' }}">
-            <a href="./subjects.html">
+          <li class="{{ Request::path() === 'tudents-marks'? 'active': '' }}">
+            <a href="{{route('subject.view')}}">
               <i class="nc-icon nc-chart-bar-32"></i>
               <p>Students Marks</p>
             </a>
@@ -174,7 +168,7 @@ Coded by www.creative-tim.com
           <div class="collapse navbar-collapse justify-content-end" id="navigation">
             <ul class="navbar-nav">
               <li class="nav-item btn-rotate dropdown">
-                <a class="nav-link dropdown-toggle" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   <i class="nc-icon nc-single-02"></i>
                 </a>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
@@ -195,27 +189,8 @@ Coded by www.creative-tim.com
 
 
 <footer class="footer footer-black  footer-white">
-        <div class="container-fluid">
-          <div class="row">
-            <nav class="footer-nav">
-              <ul>
-                <li><a href="https://www.creative-tim.com" target="_blank">Creative Tim</a></li>
-                <li><a href="https://www.creative-tim.com/blog" target="_blank">Blog</a></li>
-                <li><a href="https://www.creative-tim.com/license" target="_blank">Licenses</a></li>
-              </ul>
-            </nav>
-            <div class="credits ml-auto">
-              <span class="copyright">
-                © <script>
-                  document.write(new Date().getFullYear())
-                </script>, made with <i class="fa fa-heart heart"></i> by Creative Tim
-              </span>
-            </div>
-          </div>
-        </div>
-      </footer>
-    </div>
-  </div>
+</footer>
+   
   <!--   Core JS Files   -->
   <script src="/assets/js/core/jquery.min.js"></script>
   <script src="/assets/js/core/popper.min.js"></script>
@@ -231,20 +206,71 @@ Coded by www.creative-tim.com
   <script src="/assets/js/paper-dashboard.min.js?v=2.0.1" type="text/javascript"></script><!-- Paper Dashboard DEMO methods, don't include it in your project! -->
   <script src="/assets/demo/demo.js"></script>
   <script src="https://kit.fontawesome.com/17d1c0f917.js" crossorigin="anonymous"></script>
-  <script>
-    $(document).ready(function() {
-      // Javascript method's body can be found in assets/assets-for-demo/js/demo.js
-      demo.initChartsPages();
-    });
-  </script>
+  
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/bootstrap-select.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.3/js/jquery.dataTables.min.js"></script>
+  <script src="https://cdn.datatables.net/1.13.3/js/dataTables.bootstrap4.min.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.0/sweetalert.min.js"></script>
+
+
+
+
 <script>
-        imgInp.onchange = evt => {
-          const [file] = imgInp.files
-          if (file) {
-            img.src = URL.createObjectURL(file)
-          }
-        }
-    </script>
+    imgInp.onchange = evt => {
+      const [file] = imgInp.files
+      if (file) {
+        img.src = URL.createObjectURL(file)
+      }
+    }
+</script>
+
+
+<script>
+  $(document).ready(function () {
+    $('#studentsTable').DataTable();
+});
+</script>
+<script>
+  $(document).ready(function () {
+    $('#teachersTable').DataTable();
+});
+</script>
+<script>
+  $(document).ready(function () {
+    $('#subjectsTable').DataTable();
+});
+</script>
+
+
+
+
+<script type="text/javascript">
+ 
+  $('.show_confirm_delete').click(function(event) {
+       var form =  $(this).closest("form");
+       var id = $(this).data("id");
+       event.preventDefault();
+       swal({
+           title: `Are you sure you want to delete this record?`,
+           icon: "warning",
+           buttons: true,
+           dangerMode: true,
+       })
+       .then((willDelete) => {
+         if (willDelete) {
+           form.submit();
+         }
+       });
+   });
+
+</script>
+<script>
+
+$d
+
+</script>
 <form id="logout-form" action="{{ route('logout') }}" method="POST" >
     @csrf
 </form>

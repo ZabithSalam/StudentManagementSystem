@@ -75,9 +75,9 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        //output: INV-000001
         if($data['role'] == 'Teacher'){
             $teacherID = IdGenerator::generate(['table' => 'users','field'=>'code', 'length' => 10, 'prefix' =>'TCR-']);
+        //output: TCR-000001
             return User::create([
                 'code' => $teacherID,
                 'role' => $data['role'],
@@ -94,6 +94,7 @@ class RegisterController extends Controller
         }
         else if($data['role'] == 'Student'){
             $studentID = IdGenerator::generate(['table' => 'users','field'=>'code', 'length' => 10, 'prefix' =>'STD-']);
+        //output: STD-000001
             return User::create([
                 'code' => $studentID,
                 'role' => $data['role'],
@@ -110,6 +111,7 @@ class RegisterController extends Controller
         }
         else{
             $adminID = IdGenerator::generate(['table' => 'users','field'=>'code', 'length' => 10, 'prefix' =>'ADN-']);
+        //output: ADN-000001
             return User::create([
                 'code' => $adminID,
                 'role' => $data['role'],
@@ -122,7 +124,7 @@ class RegisterController extends Controller
                 'gender' => $data['gender'],
                 'batch' => $data['batch'],
                 'password' => Hash::make($data['password']),
-            ]);
+            ])->with('message', 'Student Enrolled Successfully');
         }
        
     }
