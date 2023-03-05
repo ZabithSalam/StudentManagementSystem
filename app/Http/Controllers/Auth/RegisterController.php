@@ -8,6 +8,7 @@ use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Haruncpi\LaravelIdGenerator\IdGenerator;
 
 class RegisterController extends Controller
 {
@@ -29,7 +30,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = RouteServiceProvider::HOME;
+    protected $redirectTo = RouteServiceProvider::DASHBOARD;
 
     /**
      * Create a new controller instance.
@@ -49,10 +50,20 @@ class RegisterController extends Controller
      */
     protected function validator(array $data)
     {
+      
+
         return Validator::make($data, [
-            'name' => ['required', 'string', 'max:255'],
+            'role' => ['required', 'string', 'max:255'],
+            'first_name' => ['required', 'string'],
+            'last_name' => ['required', 'string'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'dob' => ['required', 'string'],
+            'nic' => ['required', 'string'],
+            'city' => ['required', 'string'],
+            'gender' => ['required', 'string'],
+            'batch' => ['required', 'string'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
+            
         ]);
     }
 
@@ -64,10 +75,55 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
-        ]);
+        //output: INV-000001
+        if($data['role'] == 'Teacher'){
+            $teacherID = IdGenerator::generate(['table' => 'users','field'=>'code', 'length' => 10, 'prefix' =>'TCR-']);
+            return User::create([
+                'code' => $teacherID,
+                'role' => $data['role'],
+                'first_name' => $data['first_name'],
+                'last_name' => $data['last_name'],
+                'email' => $data['email'],
+                'dob' => $data['dob'],
+                'nic' => $data['nic'],
+                'city' => $data['city'],
+                'gender' => $data['gender'],
+                'batch' => $data['batch'],
+                'password' => Hash::make($data['password']),
+            ]);
+        }
+        else if($data['role'] == 'Student'){
+            $studentID = IdGenerator::generate(['table' => 'users','field'=>'code', 'length' => 10, 'prefix' =>'STD-']);
+            return User::create([
+                'code' => $studentID,
+                'role' => $data['role'],
+                'first_name' => $data['first_name'],
+                'last_name' => $data['last_name'],
+                'email' => $data['email'],
+                'dob' => $data['dob'],
+                'nic' => $data['nic'],
+                'city' => $data['city'],
+                'gender' => $data['gender'],
+                'batch' => $data['batch'],
+                'password' => Hash::make($data['password']),
+            ]);
+        }
+        else{
+            $adminID = IdGenerator::generate(['table' => 'users','field'=>'code', 'length' => 10, 'prefix' =>'ADN-']);
+            return User::create([
+                'code' => $adminID,
+                'role' => $data['role'],
+                'first_name' => $data['first_name'],
+                'last_name' => $data['last_name'],
+                'email' => $data['email'],
+                'dob' => $data['dob'],
+                'nic' => $data['nic'],
+                'city' => $data['city'],
+                'gender' => $data['gender'],
+                'batch' => $data['batch'],
+                'password' => Hash::make($data['password']),
+            ]);
+        }
+       
     }
 }

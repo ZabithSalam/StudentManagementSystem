@@ -13,10 +13,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
 
-Auth::routes();
+Route::get('/')->name('login')->uses('App\Http\Controllers\Auth\LoginController@showLoginForm');
+Route::post('/')->uses('App\Http\Controllers\Auth\LoginController@login');
+Auth::routes(['login' => false]);
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/dashboard', [App\Http\Controllers\HomeController::class, 'index'])->name('dashboard');
+Route::get('/profile', [App\Http\Controllers\ProfileController::class, 'index'])->name('profile');
+Route::post('/change-password', [App\Http\Controllers\ProfileController::class, 'store'])->name('change.password');
+Route::put('/upload-photo/{id}', [App\Http\Controllers\ProfileController::class, 'uploadPhoto'])->name('upload.photo');
+
+
