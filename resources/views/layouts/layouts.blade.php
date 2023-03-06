@@ -101,7 +101,7 @@ Coded by www.creative-tim.com
           @if(Auth::user()->role == 'Student')
           
           <li class="{{ Request::path() === 'marks'? 'active': '' }}">
-            <a href="./marks.html">
+            <a href="{{route('marks.view', Auth::user()->id)}}">
               <i class="nc-icon nc-chart-bar-32"></i>
               <p>My Marks</p>
             </a>
@@ -122,8 +122,8 @@ Coded by www.creative-tim.com
 
           @if(Auth::user()->role == 'Student')
           
-          <li class="{{ Request::path() === 'subjects'? 'active': '' }}">
-            <a href="{{route('subject.view')}}">
+          <li class="{{ Request::path() === 'enrolled-subjects'? 'active': '' }}">
+            <a href="{{route('subject.studentView')}}">
               <i class="fa fa-book"></i>
               <p>Enrolled Subjects</p>
             </a>
@@ -131,16 +131,6 @@ Coded by www.creative-tim.com
           
           @endif
 
-          @if(Auth::user()->role == 'Teacher' )
-
-          <li class="{{ Request::path() === 'tudents-marks'? 'active': '' }}">
-            <a href="{{route('subject.view')}}">
-              <i class="nc-icon nc-chart-bar-32"></i>
-              <p>Students Marks</p>
-            </a>
-          </li>
-
-          @endif
 
 
         </ul>

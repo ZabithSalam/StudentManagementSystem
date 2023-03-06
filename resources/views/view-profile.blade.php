@@ -50,7 +50,7 @@
                         <p><strong>NIC:</strong> {{$user->nic}}</p> 
                         <p><strong>Gender:</strong> {{$user->gender}}</p> 
                         <p><strong>Batch:</strong> {{$user->batch}}</p> 
-                        <p><strong>Marks:</strong> <a href="./marks.html">View</a></p> 
+                        <p><strong>Marks:</strong> <a href="{{route('marks.view', $user->id)}}">View</a></p> 
                      
                        @endif
 
@@ -69,8 +69,7 @@
                       </th>
                     </thead>
                     <tbody>
-                      @foreach($assignSubjects as $assignSubject)
-                      @if($assignSubject->user->id == $user->id)
+                      @foreach($user->subjects as $assignSubject)
                         <tr>
                           <td>
                             {{$assignSubject->subject->code}}
@@ -86,8 +85,6 @@
                             </form>
                           </td>
                         </tr>
-                        @endif
-                        
                       @endforeach
                     </tbody>
                   </table>

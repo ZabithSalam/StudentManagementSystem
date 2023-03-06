@@ -98,7 +98,7 @@
                           
                           <form method="POST" action="{{route('student.destroy', $student->id)}}">
                             @csrf
-                            <a href="./marks.html " class="btn btn-warning" title="View Marks"><i class="nc-icon nc-badge" ></i></a>
+                            <a href="{{route('marks.view', $student->id)}}" class="btn btn-warning" title="View Marks"><i class="nc-icon nc-badge" ></i></a>
                             <a href="{{route('view.profile', $student->id)}}" class="btn btn-success"><i class="fa fa-eye"></i></a>
                             <a href="{{route('edit.user', $student->id)}}" class="btn btn-primary"><i class="fa fa-edit"></i></a>
                             <input name="_method" type="hidden" value="DELETE">

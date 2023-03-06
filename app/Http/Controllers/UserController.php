@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Models\AssignSubject;
+use Auth;
 use Illuminate\Support\Facades\Hash;
 use Haruncpi\LaravelIdGenerator\IdGenerator;
 
@@ -15,13 +16,21 @@ class UserController extends Controller
      */
     public function index()
     {
-        $assignSubjects = AssignSubject::latest()->get();
-        $students = User::latest()->get();
-       
-        return view('students',[
-            'assignSubjects' => $assignSubjects,
-            'students' => $students,
-        ]);
+        if(Auth::user()->role == 'Teacher'){
+    
+            $assignSubjects = AssignSubject::latest()->get();
+            $students = User::latest()->get();
+           
+            return view('students',[
+                'assignSubjects' => $assignSubjects,
+                'students' => $students,
+            ]);
+        }
+        else {
+            $data['title'] = '404';
+            $data['name'] = 'Page not found';
+            return response()->view('errors.404',$data,404);
+        }
     }
 
     /**
@@ -37,6 +46,7 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
+        if(Auth::user()->role == 'Teacher'){
 
         $request->validate([
             'role' => ['required', 'string', 'max:255'],
@@ -69,6 +79,12 @@ class UserController extends Controller
                  $user->password = Hash::make($request['password']);
                  $user->save(); 
                  return back()->with('msg', 'Student enrolled successfully');
+        }
+        else {
+            $data['title'] = '404';
+            $data['name'] = 'Page not found';
+            return response()->view('errors.404',$data,404);
+        }
     }
 
     /**
@@ -76,12 +92,19 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-        $assignSubjects = AssignSubject::latest()->get();
-       
-        return view("view-profile",[
-            'assignSubjects' => $assignSubjects,
-            'user' => $user
-        ]);
+        if(Auth::user()->role == 'Teacher'){
+            $assignSubjects = AssignSubject::latest()->get();
+        
+            return view("view-profile",[
+                'assignSubjects' => $assignSubjects,
+                'user' => $user
+            ]);
+        }
+        else {
+            $data['title'] = '404';
+            $data['name'] = 'Page not found';
+            return response()->view('errors.404',$data,404);
+        }
     }
 
     /**
@@ -89,12 +112,19 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        $assignSubjects = AssignSubject::latest()->get();
-       
-        return view("edit-user",[
-            'assignSubjects' => $assignSubjects,
-            'user' => $user
-        ]);
+        if(Auth::user()->role == 'Teacher'){
+            $assignSubjects = AssignSubject::latest()->get();
+        
+            return view("edit-user",[
+                'assignSubjects' => $assignSubjects,
+                'user' => $user
+            ]);
+        }
+        else {
+            $data['title'] = '404';
+            $data['name'] = 'Page not found';
+            return response()->view('errors.404',$data,404);
+        }
     }
 
     /**
@@ -102,6 +132,8 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
+        if(Auth::user()->role == 'Teacher'){
+
         $request->validate([
             'first_name' => ['required', 'string'],
             'last_name' => ['required', 'string'],
@@ -123,7 +155,12 @@ class UserController extends Controller
         $updateUser->update();
 
         return redirect()->back()->with('msg', ' Updated Successfully');
-        
+    }
+    else {
+        $data['title'] = '404';
+        $data['name'] = 'Page not found';
+        return response()->view('errors.404',$data,404);
+    }
     }
 
     /**
@@ -131,8 +168,15 @@ class UserController extends Controller
      */
     public function destroy(string $id)
     {
+    if(Auth::user()->role == 'Teacher'){
         $subject = User::find($id);
         $subject->delete();
         return redirect()->back()->with('deleted', 'Student Deleted Successfully');
+    }
+    else {
+        $data['title'] = '404';
+        $data['name'] = 'Page not found';
+        return response()->view('errors.404',$data,404);
+    }
     }
 }

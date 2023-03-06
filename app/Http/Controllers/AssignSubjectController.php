@@ -3,11 +3,12 @@
 namespace App\Http\Controllers;
 
 use DB;
+use Auth;
 use App\Models\User;
+use App\Models\Marks;
 use App\Models\Subject;
 use Illuminate\Http\Request;
 use App\Models\AssignSubject;
-use Illuminate\Support\Facades\Auth;
 
 class AssignSubjectController extends Controller
 {
@@ -16,17 +17,26 @@ class AssignSubjectController extends Controller
      */
     public function index()
     {
-        $subjects = Subject::latest()->get();
-        $users = User::latest()->get();
-        $assignSubjects = AssignSubject::latest()->get();
+            $subjects = Subject::latest()->get();
+            $users = User::latest()->get();
+            $assignSubjects = AssignSubject::latest()->get();
+        
+            return view('assign-subject',[
+                'subjects' => $subjects,
+                'users' => $users,
+                'assignSubjects' => $assignSubjects,
+            ]);
        
-        return view('assign-subject',[
-            'subjects' => $subjects,
-            'users' => $users,
-            'assignSubjects' => $assignSubjects,
-        ]);
     }
-
+    public function studentView()
+    {
+            $assignSubjects = AssignSubject::latest()->get();
+        
+            return view('enrolled-subjects',[
+                'assignSubjects' => $assignSubjects,
+            ]);
+       
+    }
     /**
      * Show the form for creating a new resource.
      */
@@ -40,7 +50,8 @@ class AssignSubjectController extends Controller
      */
     public function store(Request $request)
     {
-      
+      if(Auth::user()->role == 'Teacher'){
+
         $student_id = $request->input('student_id');
         $subject_id = $request->input('subject_id');
     
@@ -53,13 +64,27 @@ class AssignSubjectController extends Controller
         if($count > 0){
             return back()->with('error', 'Already assigned this subject');
         }else{
-            $asssubject = new AssignSubject();
-            $asssubject->user_id = request('student_id'); 
-            $asssubject->subject_id = request('subject_id');
-            $asssubject->save(); 
+           
+            $assignedSubject = AssignSubject::create([
+                'user_id' => $request['student_id'],
+                'subject_id' => $request['subject_id'],
+           ]);
+
+            $assignedSubjectID = $assignedSubject->id;
+            $DefaultsubjectForMarks = new Marks();
+            $DefaultsubjectForMarks->user_id = request('student_id'); 
+            $DefaultsubjectForMarks->assign_subjects_id = $assignedSubjectID; 
+            $DefaultsubjectForMarks->marks = 0;
+            $DefaultsubjectForMarks->save(); 
+
             return back()->with('subAssmessage', 'Subject Assigned successfully');
         }
-            
+    }
+    else {
+        $data['title'] = '404';
+        $data['name'] = 'Page not found';
+        return response()->view('errors.404',$data,404);
+    }
         
     }
 
@@ -92,8 +117,16 @@ class AssignSubjectController extends Controller
      */
     public function destroy(string $id)
     {
+      if(Auth::user()->role == 'Teacher'){
         $asssubject = AssignSubject::find($id);
         $asssubject->delete();
+
         return redirect()->back()->with('deleted', 'Subject Deleted Successfully');
+    }
+    else {
+        $data['title'] = '404';
+        $data['name'] = 'Page not found';
+        return response()->view('errors.404',$data,404);
+    }
     }
 }

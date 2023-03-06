@@ -80,7 +80,7 @@
                         @foreach($subjects as $subject)
                          <span style="background-color: rgb(65, 165, 73); padding: 4px; border-radius: 6px; color: #fff;">{{$subject->subject}}</span> 
                         @endforeach
-                         <p><strong>Marks:</strong> <a href="./marks.html">View</a></p> 
+                         <p><strong>Marks:</strong> <a href="{{route('marks.view', Auth::user()->id)}}">View</a></p> 
                      
                        @endif
 
