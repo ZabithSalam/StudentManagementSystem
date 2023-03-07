@@ -22,8 +22,9 @@
               <div class="card-body">
 
                 <div class="table-responsive p-5">
-                <a href="{{route('marks.pdf', $user->id)}}" class="btn btn-success float-right">Download PDF</a>
-
+                  @if(Auth::user()->role == 'Student')
+                    <a href="{{route('marks.pdf', $user->id)}}" class="btn btn-success float-right">Download PDF</a>
+                  @endif
                   <p><strong>Student ID:</strong> {{$user->code}}</p>
                     <p><strong>Student Name:</strong> {{$user->first_name}} {{$user->last_name}}</p>
       
@@ -69,7 +70,12 @@
                           <button type="submit" class="btn btn-warning  ml-2">Update</button>
 
                           @else
-                          {{$mark->marks}}
+
+                          @if($mark->marks == 0)
+                              Not Released
+                            @else
+                            {{$mark->marks}}
+                          @endif
                         @endif
                         </td>
                         <td>
@@ -90,7 +96,13 @@
                             $total = $user->marks->sum('marks');
                             $avg =  $total/$user->subjects->count();
                           @endphp
-                          <h5>{{$avg}}</h5>
+                          <h5>
+                            @if($mark->marks == 0)
+                              Not Released
+                            @else
+                            {{$avg}}
+                          @endif
+                          </h5>
                         </td>
                         <td>
                         </td>

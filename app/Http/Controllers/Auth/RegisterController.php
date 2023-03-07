@@ -76,7 +76,7 @@ class RegisterController extends Controller
     protected function create(array $data)
     {
         if($data['role'] == 'Teacher'){
-            $teacherID = IdGenerator::generate(['table' => 'users','field'=>'code', 'length' => 10, 'prefix' =>'TCR-']);
+            $teacherID = IdGenerator::generate(['table' => 'users','field'=>'code', 'length' => 10, 'prefix' =>'SMS-']);
         //output: TCR-000001
             return User::create([
                 'code' => $teacherID,

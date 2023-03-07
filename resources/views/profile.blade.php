@@ -77,8 +77,10 @@
                         <p><strong>Gender:</strong> {{Auth::user()->gender}}</p> 
                         <p><strong>Batch:</strong> {{Auth::user()->batch}}</p> 
                         <p><strong>Enrolled Subjects:</strong>
-                        @foreach($subjects as $subject)
-                         <span style="background-color: rgb(65, 165, 73); padding: 4px; border-radius: 6px; color: #fff;">{{$subject->subject}}</span> 
+                        @foreach($assignSubjects as $assignSubject)
+                            @if(Auth::user()->id == $assignSubject->user_id)
+                             <span style="background-color: rgb(65, 165, 73); padding: 4px; border-radius: 6px; color: #fff;">{{$assignSubject->subject->subject}}</span> 
+                            @endif
                         @endforeach
                          <p><strong>Marks:</strong> <a href="{{route('marks.view', Auth::user()->id)}}">View</a></p> 
                      

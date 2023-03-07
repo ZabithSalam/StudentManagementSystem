@@ -62,7 +62,7 @@ class UserController extends Controller
         ]);
 
 
-            $teacherID = IdGenerator::generate(['table' => 'users','field'=>'code', 'length' => 10, 'prefix' =>'STD-']);
+            $teacherID = IdGenerator::generate(['table' => 'users','field'=>'code', 'length' => 10, 'prefix' =>'SMS-']);
                 //output: SMS-000001
             
                  $user = new User();
