@@ -23,29 +23,29 @@ Laravel is accessible, powerful, and provides tools required for large, robust a
 
 ## Screenshots of the work
 
-<img src="https://github.com/laravel/public/assets/img/screenshots/s1.png" >
+<img src="https://github.com/public/assets/img/screenshots/s1.png" >
 
-<img src="https://github.com/laravel/public/assets/img/screenshots/s2.png" >
+<img src="https://github.com/public/assets/img/screenshots/s2.png" >
 
-<img src="https://github.com/laravel/public/assets/img/screenshots/s3.png" >
+<img src="https://github.com/public/assets/img/screenshots/s3.png" >
 
-<img src="https://github.com/laravel/public/assets/img/screenshots/s4.png" >
+<img src="https://github.com/public/assets/img/screenshots/s4.png" >
 
-<img src="https://github.com/laravel/public/assets/img/screenshots/s5.png" >
+<img src="https://github.com/public/assets/img/screenshots/s5.png" >
 
-<img src="https://github.com/laravel/public/assets/img/screenshots/s6.png" >
+<img src="https://github.com/public/assets/img/screenshots/s6.png" >
 
-<img src="https://github.com/laravel/public/assets/img/screenshots/s7.png" >
+<img src="https://github.com/public/assets/img/screenshots/s7.png" >
 
-<img src="https://github.com/laravel/public/assets/img/screenshots/s8.png" >
+<img src="https://github.com/public/assets/img/screenshots/s8.png" >
 
-<img src="https://github.com/laravel/public/assets/img/screenshots/s9.png" >
+<img src="https://github.com/public/assets/img/screenshots/s9.png" >
 
-<img src="https://github.com/laravel/public/assets/img/screenshots/s10.png" >
+<img src="https://github.com/public/assets/img/screenshots/s10.png" >
 
-<img src="https://github.com/laravel/public/assets/img/screenshots/s11.png" >
+<img src="https://github.com/public/assets/img/screenshots/s11.png" >
 
-<img src="https://github.com/laravel/public/assets/img/screenshots/s12.png" >
+<img src="https://github.com/public/assets/img/screenshots/s12.png" >
 
 
 ## License
